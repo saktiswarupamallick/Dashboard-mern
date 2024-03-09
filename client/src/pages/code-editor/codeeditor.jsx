@@ -1,5 +1,5 @@
 import axios from "axios";
-import "./App.css";
+
 import stubs from "./stubs";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
