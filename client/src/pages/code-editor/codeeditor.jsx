@@ -4,7 +4,7 @@ import stubs from "./stubs";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
-function App() {
+function codeeditor() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [language, setLanguage] = useState("cpp");
@@ -99,7 +99,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="codeeditor">
       <h1>Online Code Compiler</h1>
       <div>
         <label>Language:</label>
@@ -141,4 +141,4 @@ function App() {
   );
 }
 
-export default App;
+export default codeeditor;
