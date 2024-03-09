@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+import { exec } from "child_process";
 
 const executePy = (filepath) => {
   return new Promise((resolve, reject) => {
@@ -13,6 +13,4 @@ const executePy = (filepath) => {
   });
 };
 
-module.exports = {
-  executePy,
-};
+export { executePy };

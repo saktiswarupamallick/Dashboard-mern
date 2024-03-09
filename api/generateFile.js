@@ -1,18 +1,23 @@
-import fs from "fs";
-import path from "path";
-import { v4 as uuid } from "uuid";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import fs from 'fs/promises';
+import path from 'path';
+import { v4 as uuid } from 'uuid';
 
-const dirCodes = path.join(__dirname, "codes");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const dirCodes = path.join(__dirname, 'codes');
 
 if (!fs.existsSync(dirCodes)) {
-  fs.mkdirSync(dirCodes, { recursive: true });
+  await fs.mkdir(dirCodes, { recursive: true });
 }
 
 const generateFile = async (format, content) => {
   const jobId = uuid();
   const filename = `${jobId}.${format}`;
   const filepath = path.join(dirCodes, filename);
-  await fs.promises.writeFile(filepath, content);
+  await fs.writeFile(filepath, content);
   return filepath;
 };
 
