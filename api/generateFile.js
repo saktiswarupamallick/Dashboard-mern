@@ -1,6 +1,6 @@
-const fs = require("fs");
-const path = require("path");
-const { v4: uuid } = require("uuid");
+import fs from "fs";
+import path from "path";
+import { v4 as uuid } from "uuid";
 
 const dirCodes = path.join(__dirname, "codes");
 
@@ -12,10 +12,8 @@ const generateFile = async (format, content) => {
   const jobId = uuid();
   const filename = `${jobId}.${format}`;
   const filepath = path.join(dirCodes, filename);
-  await fs.writeFileSync(filepath, content);
+  await fs.promises.writeFile(filepath, content);
   return filepath;
 };
 
-module.exports = {
-  generateFile,
-};
+export { generateFile };

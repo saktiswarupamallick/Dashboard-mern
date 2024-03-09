@@ -1,6 +1,6 @@
-const { exec } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+import { exec } from "child_process";
+import fs from "fs";
+import path from "path";
 
 const outputPath = path.join(__dirname, "outputs");
 
@@ -24,6 +24,4 @@ const executeCpp = (filepath) => {
   });
 };
 
-module.exports = {
-  executeCpp,
-};
+export { executeCpp };

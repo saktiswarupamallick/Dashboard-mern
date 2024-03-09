@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const JobSchema = mongoose.Schema({
   language: {
@@ -31,4 +31,5 @@ const JobSchema = mongoose.Schema({
 });
 
 // default export
-module.exports = mongoose.model("job", JobSchema);
+const Job =  mongoose.model("job", JobSchema);
+export default Job

@@ -1,8 +1,7 @@
-const Queue = require("bull");
-
-const Job = require("./models/Job");
-const { executeCpp } = require("./executeCpp");
-const { executePy } = require("./executePy");
+import Queue from "bull";
+import Job from "./models/Job.js";
+import { executeCpp } from "./executeCpp.js";
+import { executePy } from "./executePy.js";
 
 const jobQueue = new Queue("job-runner-queue");
 const NUM_WORKERS = 5;
@@ -11,27 +10,27 @@ jobQueue.process(NUM_WORKERS, async ({ data }) => {
   const jobId = data.id;
   const job = await Job.findById(jobId);
   if (job === undefined) {
-    throw Error(`cannot find Job with id ${jobId}`);
+    throw new Error(`cannot find Job with id ${jobId}`);
   }
   try {
     let output;
-    job["startedAt"] = new Date();
+    job.startedAt = new Date();
     if (job.language === "cpp") {
       output = await executeCpp(job.filepath);
     } else if (job.language === "py") {
       output = await executePy(job.filepath);
     }
-    job["completedAt"] = new Date();
-    job["output"] = output;
-    job["status"] = "success";
+    job.completedAt = new Date();
+    job.output = output;
+    job.status = "success";
     await job.save();
     return true;
   } catch (err) {
-    job["completedAt"] = new Date();
-    job["output"] = JSON.stringify(err);
-    job["status"] = "error";
+    job.completedAt = new Date();
+    job.output = JSON.stringify(err);
+    job.status = "error";
     await job.save();
-    throw Error(JSON.stringify(err));
+    throw new Error(JSON.stringify(err));
   }
 });
 
@@ -45,6 +44,4 @@ const addJobToQueue = async (jobId) => {
   });
 };
 
-module.exports = {
-  addJobToQueue,
-};
+export { addJobToQueue };
