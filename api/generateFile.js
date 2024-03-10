@@ -9,7 +9,10 @@ const __dirname = dirname(__filename);
 
 const dirCodes = path.join(__dirname, 'codes');
 
-if (!fs.existsSync(dirCodes)) {
+try {
+  await fs.access(dirCodes);
+} catch (error) {
+  // Directory does not exist, create it
   await fs.mkdir(dirCodes, { recursive: true });
 }
 
