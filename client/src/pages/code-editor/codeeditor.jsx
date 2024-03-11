@@ -1,10 +1,10 @@
+// Import necessary libraries and components
 import axios from "axios";
-
 import stubs from "./stubs";
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 
-function codeeditor() {
+function CodeEditor() {
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const [language, setLanguage] = useState("cpp");
@@ -33,7 +33,7 @@ function codeeditor() {
       setStatus(null);
       setJobId(null);
       setJobDetails(null);
-      const { data } = await axios.post("http://localhost:5000/run", payload);
+      const { data } = await axios.post("https://humble-spoon-q774vxjp5j4g3xrx9-5000.app.github.dev/run", payload);
       if (data.jobId) {
         setJobId(data.jobId);
         setStatus("Submitted.");
@@ -41,7 +41,7 @@ function codeeditor() {
         // poll here
         pollInterval = setInterval(async () => {
           const { data: statusRes } = await axios.get(
-            `http://localhost:5000/status`,
+            `https://humble-spoon-q774vxjp5j4g3xrx9-5000.app.github.dev/status`,
             {
               params: {
                 id: data.jobId,
@@ -99,10 +99,11 @@ function codeeditor() {
   };
 
   return (
-    <div className="codeeditor">
-      <h1>Online Code Compiler</h1>
-      <div>
-        <label>Language:</label>
+    <div className="codeeditor p-6 max-w-screen-lg mx-auto bg-gray-100 rounded shadow-lg">
+      <h1 className="text-3xl font-bold mb-4 text-gray-800">Online Code Compiler</h1>
+
+      <div className="mb-4">
+        <label className="mr-2 text-gray-700">Language:</label>
         <select
           value={language}
           onChange={(e) => {
@@ -113,16 +114,19 @@ function codeeditor() {
               setLanguage(e.target.value);
             }
           }}
+          className="p-2 border border-gray-300 rounded"
         >
           <option value="cpp">C++</option>
           <option value="py">Python</option>
         </select>
       </div>
-      <br />
-      <div>
-        <button onClick={setDefaultLanguage}>Set Default</button>
+
+      <div className="mb-4">
+        <button onClick={setDefaultLanguage} className="bg-blue-500 text-white px-4 py-2 rounded">
+          Set Default
+        </button>
       </div>
-      <br />
+
       <textarea
         rows="20"
         cols="75"
@@ -130,15 +134,22 @@ function codeeditor() {
         onChange={(e) => {
           setCode(e.target.value);
         }}
+        className="p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring focus:border-blue-500"
       ></textarea>
-      <br />
-      <button onClick={handleSubmit}>Submit</button>
-      <p>{status}</p>
-      <p>{jobId ? `Job ID: ${jobId}` : ""}</p>
-      <p>{renderTimeDetails()}</p>
-      <p>{output}</p>
+
+      <button
+        onClick={handleSubmit}
+        className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:ring focus:border-green-700"
+      >
+        Submit
+      </button>
+
+      <p className="mt-4 text-gray-700">{status}</p>
+      <p className="text-gray-700">{jobId ? `Job ID: ${jobId}` : ""}</p>
+      <p className="text-gray-700">{renderTimeDetails()}</p>
+      <p className="mt-4 text-gray-800">{output}</p>
     </div>
   );
 }
 
-export default codeeditor;
+export default CodeEditor;

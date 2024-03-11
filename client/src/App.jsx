@@ -14,27 +14,29 @@ import UpdatePost from './pages/UpdatePost';
 import PostPage from './pages/PostPage';
 import ScrollToTop from './components/ScrollToTop';
 import Search from './pages/Search';
-import Landingpage from './landing-page/landingpage'; 
+import Landingpage from './landing-page/landingpage';
+import Codeeditor from "./pages/code-editor/codeeditor"
 
 export default function App() {
   return (
     <BrowserRouter>
-       <Header />
+      <Header />
       <Routes>
-      <Route path='/landing' element={<Landingpage />} />
+        <Route path='/landing' element={<Landingpage />} />
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/sign-in' element={<SignIn />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/search' element={<Search />} />
-       
-          <Route path='/dashboard' element={<Dashboard />} />
-        
+
+        <Route path='/dashboard' element={<Dashboard />} />
+
         <Route element={<OnlyAdminPrivateRoute />}>
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/update-post/:postId' element={<UpdatePost />} />
         </Route>
 
+        <Route path='/codeditor' element={<Codeeditor />} />
         <Route path='/projects' element={<Projects />} />
         <Route path='/post/:postSlug' element={<PostPage />} />
       </Routes>
