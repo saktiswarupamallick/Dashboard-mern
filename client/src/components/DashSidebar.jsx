@@ -45,10 +45,6 @@ export default function DashSidebar() {
       <Sidebar.Items>
         <Sidebar.ItemGroup className='flex flex-col gap-1'>
         
-           
-        
-          
-         
             <>
               
               <Link to='/dashboard?tab=code-editor'>
