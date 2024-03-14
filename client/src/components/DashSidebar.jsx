@@ -46,7 +46,6 @@ export default function DashSidebar() {
         <Sidebar.ItemGroup className='flex flex-col gap-1'>
 
             <>
-              
               <Link to='/dashboard?tab=code-editor'>
                 <Sidebar.Item
                   active={tab === 'code-editor'}
